@@ -6,7 +6,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.OneToMany;
 
 @Entity
 @Table(name = "musical_style")
@@ -14,7 +13,6 @@ public class MusicalStyle {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@OneToMany(mappedBy="poll")
     private Long id;
 	
 	@Column(name = "name", nullable = false)

@@ -3,12 +3,14 @@ package com.gustosmusicales.api.service.impl;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Service;
 
 import com.gustosmusicales.api.dto.MusicalStyleDto;
 import com.gustosmusicales.api.models.MusicalStyle;
 import com.gustosmusicales.api.service.MusicalStyleService;
 import com.gustosmusicales.api.repository.MusicalStyleRepository;
 
+@Service
 public class MusicalStyleServiceImpl implements MusicalStyleService {
 	
 	private final MusicalStyleRepository musicalStyleRepository;

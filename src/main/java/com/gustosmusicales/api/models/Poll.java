@@ -2,18 +2,27 @@ package com.gustosmusicales.api.models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Table;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.CascadeType;
+import javax.persistence.Id;
+
 
 @Entity
 @Table(name = "poll")
 public class Poll {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id", nullable = false)
+    private Long id;
 
 	@ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "musical_style_id", nullable=false, referencedColumnName = "id")
-	private Long musicalStyleId;
+    @JoinColumn(name = "musical_style_id")
+	private MusicalStyle musicalStyle;
 	
 	@Column(name = "email", nullable = false)
     private String email;
@@ -21,18 +30,13 @@ public class Poll {
     public Poll() {
     }
     
-    
-    public Poll(Long musicalStyleId, String email) {
-        this.musicalStyleId = musicalStyleId;
-        this.email = email;
-    }
-    
-	public Long getMusicalStyleId() {
-		return musicalStyleId;
+   
+	public MusicalStyle getMusicalStyle() {
+		return musicalStyle;
 	}
 
-	public void setMusicalStyleId(Long musicalStyleId) {
-		this.musicalStyleId = musicalStyleId;
+	public void setMusicalStyle(MusicalStyle musicalStyle) {
+		this.musicalStyle = musicalStyle;	
 	}
 
 	public String getEmail() {
