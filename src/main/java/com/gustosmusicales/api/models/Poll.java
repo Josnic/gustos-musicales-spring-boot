@@ -2,6 +2,7 @@ package com.gustosmusicales.api.models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Table;
@@ -20,7 +21,7 @@ public class Poll {
 	@Column(name = "id", nullable = false)
     private Long id;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = {CascadeType.REMOVE},fetch= FetchType.EAGER)
     @JoinColumn(name = "musical_style_id")
 	private MusicalStyle musicalStyle;
 	

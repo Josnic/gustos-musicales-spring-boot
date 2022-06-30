@@ -1,8 +1,10 @@
 package com.gustosmusicales.api.dto;
 
+import com.gustosmusicales.api.models.MusicalStyle;
+
 public class PollDto {
 
-	private Long musicalStyleId;
+	private MusicalStyle musicalStyle;
 	
     private String email;
 
@@ -10,17 +12,17 @@ public class PollDto {
     }
     
     
-    public PollDto(Long musicalStyleId, String email) {
-        this.musicalStyleId = musicalStyleId;
+    public PollDto(MusicalStyle musicalStyle, String email) {
+        this.musicalStyle = musicalStyle;
         this.email = email;
     }
     
-	public Long getMusicalStyleId() {
-		return musicalStyleId;
+	public MusicalStyle getMusicalStyle() {
+		return musicalStyle;
 	}
 
-	public void setMusicalStyleId(Long musicalStyleId) {
-		this.musicalStyleId = musicalStyleId;
+	public void setMusicalStyle(MusicalStyle musicalStyleId) {
+		this.musicalStyle = musicalStyleId;
 	}
 
 	public String getEmail() {

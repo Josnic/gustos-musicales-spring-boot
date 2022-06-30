@@ -20,9 +20,9 @@ public class PollServiceImpl implements PollService {
     }
 
 	@Override
-	public Poll add(PollDto PollDto) {
+	public Poll add(PollDto pollDto) {
 		Poll poll = new Poll();
-        BeanUtils.copyProperties(PollDto, poll);
+        BeanUtils.copyProperties(pollDto, poll);
         return pollRepository.save(poll);
 	}
 

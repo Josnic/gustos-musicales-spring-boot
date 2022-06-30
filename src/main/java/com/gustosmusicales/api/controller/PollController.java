@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -37,7 +38,7 @@ public class PollController {
     public PollController() {
     }
     
-    @PostMapping(value = "/poll/add")
+    @PostMapping(value = "/apiv1/poll/add")
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Crear un nuevo registro de encuenta", tags = { "Encuestas" })
     @ApiResponses(value = {
@@ -46,17 +47,22 @@ public class PollController {
             content = @Content(schema =  @Schema(implementation = Poll.class))),
             @ApiResponse(responseCode = "500",
             description = "Error interno de servidor",
+            content = @Content),
+            @ApiResponse(responseCode = "403",
+            description = "Api key no válida",
             content = @Content)
     })
+    @SecurityRequirement(name = "apiKey")
     public ResponseEntity<Poll> addPoll(@RequestBody PollDto requestBody) {
     	try {
     		return ResponseEntity.status(HttpStatus.CREATED).body(PollService.add(requestBody));
     	}catch(Exception ex) {
+    		System.out.print(ex.getMessage());
     		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     	}
     }
 
-    @GetMapping(value = "/poll//list", produces = "application/json")
+    @GetMapping(value = "/apiv1/poll/list", produces = "application/json")
     @Operation(summary = "lista todos los datos de encuentas", tags = { "Encuestas" })
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
@@ -64,8 +70,12 @@ public class PollController {
             		content = @Content(array = @ArraySchema(schema =  @Schema(implementation = Poll.class)))),
             @ApiResponse(responseCode = "500",
             description = "Error interno de servidor",
+            content = @Content),
+            @ApiResponse(responseCode = "403",
+            description = "Api key no válida",
             content = @Content)
     })
+    @SecurityRequirement(name = "apiKey")
     public ResponseEntity<List<Poll>> findAllPolls() {
     	try {
     		return ResponseEntity.status(HttpStatus.OK).body(PollService.getAll());

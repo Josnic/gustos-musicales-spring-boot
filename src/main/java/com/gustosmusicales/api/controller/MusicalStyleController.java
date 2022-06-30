@@ -18,6 +18,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 
@@ -37,7 +38,7 @@ public class MusicalStyleController {
     public MusicalStyleController() {
     }
     
-    @PostMapping(value = "/musical-style/add", produces = "application/json")
+    @PostMapping(value = "/apiv1/musical-style/add", produces = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Crear un nuevo estilo", tags = { "Estilos musicales" })
     @ApiResponses(value = {
@@ -46,15 +47,21 @@ public class MusicalStyleController {
             content = @Content(schema =  @Schema(implementation = MusicalStyle.class))),
             @ApiResponse(responseCode = "500",
             description = "Error interno de servidor",
+            content = @Content),
+            @ApiResponse(responseCode = "403",
+            description = "Api key no válida",
+            content = @Content),
+            @ApiResponse(responseCode = "403",
+            description = "Api key no válida",
             content = @Content)
     })
+    @SecurityRequirement(name = "apiKey")
     public ResponseEntity<MusicalStyle> addMusicalStyle(@RequestBody MusicalStyleDto requestBody) {
     	try {
-    		
+    		return ResponseEntity.status(HttpStatus.CREATED).body(musicalStyleService.add(requestBody));
     	}catch(Exception ex) {
     		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     	}
-        return ResponseEntity.status(HttpStatus.CREATED).body(musicalStyleService.add(requestBody));
     }
 
     @Operation(summary = "lista todos los estilos musicales", tags = { "Estilos musicales" })
@@ -64,9 +71,13 @@ public class MusicalStyleController {
             		content = @Content(array = @ArraySchema(schema =  @Schema(implementation = MusicalStyle.class)))),
             @ApiResponse(responseCode = "500",
             description = "Error interno de servidor",
+            content = @Content),
+            @ApiResponse(responseCode = "403",
+            description = "Api key no válida",
             content = @Content)
     })
-    @GetMapping(value = "/musical-style/list", produces = "application/json")
+    @SecurityRequirement(name = "apiKey")
+    @GetMapping(value = "/apiv1/musical-style/list", produces = "application/json")
     public ResponseEntity<List<MusicalStyle>> findAllMusicalStyles() {
     	try {
     		return ResponseEntity.status(HttpStatus.OK).body(musicalStyleService.getAll());
@@ -86,7 +97,8 @@ public class MusicalStyleController {
             description = "Error interno de servidor",
             content = @Content)
     })
-    @GetMapping(value = "/musical-style/list-total", produces = "application/json")
+    @GetMapping(value = "/apiv1/musical-style/list-total", produces = "application/json")
+    @SecurityRequirement(name = "apiKey")
     public ResponseEntity<List<MusicalStyleScoreDto>> findAllMusicalStylesTotal() {
     	try {
     		return ResponseEntity.status(HttpStatus.OK).body(musicalStyleService.findAllWithTotal());
