@@ -6,8 +6,10 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import com.gustosmusicales.api.dto.MusicalStyleDto;
+import com.gustosmusicales.api.dto.MusicalStyleScoreDto;
 import com.gustosmusicales.api.models.MusicalStyle;
 import com.gustosmusicales.api.service.MusicalStyleService;
+
 import com.gustosmusicales.api.repository.MusicalStyleRepository;
 
 @Service
@@ -29,6 +31,11 @@ public class MusicalStyleServiceImpl implements MusicalStyleService {
 	@Override
 	public List<MusicalStyle> getAll() {
 		return (List<MusicalStyle>) musicalStyleRepository.findAll();
+	}
+
+	@Override
+	public List<MusicalStyleScoreDto> findAllWithTotal() {
+		return (List<MusicalStyleScoreDto>) musicalStyleRepository.findAllWithTotal();
 	}
 
 }

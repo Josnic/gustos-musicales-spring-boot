@@ -1,6 +1,7 @@
 package com.gustosmusicales.api.controller;
 
 import com.gustosmusicales.api.dto.MusicalStyleDto;
+import com.gustosmusicales.api.dto.MusicalStyleScoreDto;
 import com.gustosmusicales.api.models.MusicalStyle;
 import com.gustosmusicales.api.service.MusicalStyleService;
 
@@ -59,7 +60,7 @@ public class MusicalStyleController {
     @Operation(summary = "lista todos los estilos musicales", tags = { "Estilos musicales" })
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
-            description = "Detalle de los estilos usicales",
+            description = "Detalle de los estilos musicales",
             		content = @Content(array = @ArraySchema(schema =  @Schema(implementation = MusicalStyle.class)))),
             @ApiResponse(responseCode = "500",
             description = "Error interno de servidor",
@@ -69,6 +70,26 @@ public class MusicalStyleController {
     public ResponseEntity<List<MusicalStyle>> findAllMusicalStyles() {
     	try {
     		return ResponseEntity.status(HttpStatus.OK).body(musicalStyleService.getAll());
+    	}catch(Exception ex) {
+    		
+    		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    	}
+        
+    }
+    
+    @Operation(summary = "lista todos los estilos musicales con su total de encuenta", tags = { "Estilos musicales" })
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+            description = "Detalle de los estilos musicales",
+            		content = @Content(array = @ArraySchema(schema =  @Schema(implementation = MusicalStyleScoreDto.class)))),
+            @ApiResponse(responseCode = "500",
+            description = "Error interno de servidor",
+            content = @Content)
+    })
+    @GetMapping(value = "/musical-style/list-total", produces = "application/json")
+    public ResponseEntity<List<MusicalStyleScoreDto>> findAllMusicalStylesTotal() {
+    	try {
+    		return ResponseEntity.status(HttpStatus.OK).body(musicalStyleService.findAllWithTotal());
     	}catch(Exception ex) {
     		
     		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
