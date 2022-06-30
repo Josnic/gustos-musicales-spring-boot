@@ -34,7 +34,7 @@ public class MusicalStyleServiceImpl implements MusicalStyleService {
 	}
 
 	@Override
-	public List<MusicalStyleScoreDto> findAllWithTotal() {
+	public List<MusicalStyleScoreDto> findAllWithTotal() {	
 		return (List<MusicalStyleScoreDto>) musicalStyleRepository.findAllWithTotal();
 	}
 

@@ -57,7 +57,6 @@ public class PollController {
     	try {
     		return ResponseEntity.status(HttpStatus.CREATED).body(PollService.add(requestBody));
     	}catch(Exception ex) {
-    		System.out.print(ex.getMessage());
     		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     	}
     }

@@ -11,6 +11,6 @@ import com.gustosmusicales.api.dto.MusicalStyleScoreDto;
 
 @Repository
 public interface MusicalStyleRepository extends JpaRepository<MusicalStyle, Long>{
-	@Query(nativeQuery = true, value = "SELECT ms.id AS id, ms.name AS name, (SELECT COUNT(po.id) FROM poll po WHERE po.musical_style_id = ms.id) FROM musical_style ms ORDER BY ms.id ASC")
+	@Query(nativeQuery = true)
 	List<MusicalStyleScoreDto> findAllWithTotal();
 }

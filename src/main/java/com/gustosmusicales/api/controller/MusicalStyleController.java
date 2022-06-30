@@ -103,7 +103,7 @@ public class MusicalStyleController {
     	try {
     		return ResponseEntity.status(HttpStatus.OK).body(musicalStyleService.findAllWithTotal());
     	}catch(Exception ex) {
-    		
+    		System.out.print(ex.getMessage());
     		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     	}
         
