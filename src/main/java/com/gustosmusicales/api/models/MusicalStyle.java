@@ -11,7 +11,6 @@ import javax.persistence.Table;
 import javax.persistence.ConstructorResult;
 import javax.persistence.ColumnResult;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gustosmusicales.api.dto.MusicalStyleScoreDto;
 
 @NamedNativeQuery(name = "MusicalStyle.findAllWithTotal",

@@ -40,7 +40,7 @@ public class APISecurityConfig {
                 return authentication;
             }
         });
-        http.antMatcher("/api1/**").
+        http.antMatcher("/apiv1/**").
                 csrf().disable().
                 sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).
                 and().addFilter(filter).authorizeRequests().anyRequest().authenticated();
