@@ -50,9 +50,6 @@ public class MusicalStyleController {
             content = @Content),
             @ApiResponse(responseCode = "403",
             description = "Api key no válida",
-            content = @Content),
-            @ApiResponse(responseCode = "403",
-            description = "Api key no válida",
             content = @Content)
     })
     @SecurityRequirement(name = "apiKey")
